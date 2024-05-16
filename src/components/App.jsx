@@ -4,7 +4,7 @@ import Breadcrumbs from "@/components/Breadcrumbs.jsx";
 
 export default function App({
 	form,
-	listingName })
+	listing })
 {
 		// use a ref instead of state to store the Formio form instance so that we
 		// don't have to recreate the pageChange handler every time the App re-renders.
@@ -14,6 +14,10 @@ export default function App({
 		// through the ref.
 	const instanceRef = useRef();
 	const [currentPanelKey, setCurrentPanelKey] = useState();
+		// make the listing data available wherever JS is eval'd in this form
+	const options = {
+		evalContext: { listing }
+	};
 
 	const handleWizardPageSelected = useCallback((panel) => {
 			// this event includes the instance of the panel that was clicked, so fish
@@ -39,7 +43,7 @@ export default function App({
 
 	return (
 		<div>
-			<h1>{listingName} Application</h1>
+			<h1>{listing.Name} Application</h1>
 			<Breadcrumbs
 				form={form}
 				currentPanelKey={currentPanelKey}
@@ -50,6 +54,7 @@ export default function App({
 				onNextPage={handlePageChange}
 				onPrevPage={handlePageChange}
 				onSubmit={console.log}
+				options={options}
 			/>
 		</div>
 	);

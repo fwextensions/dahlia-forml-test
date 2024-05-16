@@ -700,7 +700,7 @@ components:
       - type: panel
         title: NRHP
         customConditional: |
-          show = utils.listing?.Listing_Lottery_Preferences.some(({ Lottery_Preference: { Name } }) => Name.includes("NRHP"))
+          show = listing.Listing_Lottery_Preferences.some(({ Lottery_Preference: { Name } }) => Name.includes("NRHP"))
         components:
           - tag: h3
             content: Good news! You qualify for a higher ranking in the lottery.
