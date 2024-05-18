@@ -309,39 +309,43 @@ components:
 
           - type: fieldSet
             label: Mailing Address
+            key: fsMailingAddress
             customConditional: show = data.sendDifferentAddress
             components:
               - tag: p
                 content: Provide an address where you can receive updates and
                   materials about your application.
 
-              - type: textfield
-                label: Street Address*
+              - type: container
+                key: mailingAddress
+                components:
+                  - type: textfield
+                    label: Street Address*
 
-              - type: textfield
-                label: "Apt or Unit #"
+                  - type: textfield
+                    label: "Apt or Unit #"
 
-              - type: textfield
-                label: City*
+                  - type: textfield
+                    label: City*
 
-              - type: columns
-                columns:
-                  - components:
-                    - type: select
-                      label: State*
-                      widget: choicesjs
-                      searchEnabled: true
-                      data: *states
+                  - type: columns
+                    columns:
+                      - components:
+                        - type: select
+                          label: State*
+                          widget: choicesjs
+                          searchEnabled: true
+                          data: *states
 
-                  - components:
-                    - type: textfield
-                      label: Zip Code*
-                      validateOn: blur
-                      validate:
-                        minLength: 5
-                        maxLength: 10
-                        pattern: "[0-9]{5}(-[0-9]{4})?"
-                        customMessage: Please enter a valid zip code.
+                      - components:
+                        - type: textfield
+                          label: Zip Code*
+                          validateOn: blur
+                          validate:
+                            minLength: 5
+                            maxLength: 10
+                            pattern: "[0-9]{5}(-[0-9]{4})?"
+                            customMessage: Please enter a valid zip code.
 
           - tag: hr
 

@@ -55,6 +55,10 @@ const ComponentProperties = [
 	["fieldSet",
 		TableInputFalse
 	],
+	["container", {
+		hideLabel: true,
+		...TableInputFalse
+	}],
 	["editgrid",
 		TableInputFalse
 	],

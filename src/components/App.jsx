@@ -21,6 +21,11 @@ export default function App({
 		buttonSettings: {
 			showCancel: false
 		},
+		i18n: {
+			en: {
+				previous: "Back"
+			}
+		},
 		hooks
 	};
 
