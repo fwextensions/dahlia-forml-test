@@ -71,6 +71,9 @@ const ComponentProperties = [
 	["columns",
 		TableInputFalse
 	],
+	["file",
+		TableInputTrue
+	],
 ];
 export const ComponentDefaults = ComponentProperties.reduce((
 	result,

@@ -1,7 +1,21 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Form } from "@formio/react";
-import Breadcrumbs from "@/components/Breadcrumbs.jsx";
+import Header from "@/components/Header.jsx";
+import ReviewSummary from "@/components/ReviewSummary.jsx";
 import hooks from "@/form/hooks.js";
+
+const formOptions = {
+	buttonSettings: {
+		showCancel: false
+	},
+	i18n: {
+		en: {
+			previous: "Back"
+		}
+	},
+	hooks,
+};
 
 export default function App({
 	form,
@@ -15,18 +29,11 @@ export default function App({
 		// through the ref.
 	const instanceRef = useRef();
 	const [currentPanelKey, setCurrentPanelKey] = useState();
+	const [reviewContainer, setReviewContainer] = useState();
 		// make the listing data available wherever JS is eval'd in this form
 	const options = {
+		...formOptions,
 		evalContext: { listing },
-		buttonSettings: {
-			showCancel: false
-		},
-		i18n: {
-			en: {
-				previous: "Back"
-			}
-		},
-		hooks
 	};
 
 	const handleWizardPageSelected = useCallback((panel) => {
@@ -36,6 +43,7 @@ export default function App({
 	}, []);
 
 	const handlePageChange = useCallback(({ page }) => {
+			// convert the page number into a panel key
 		setCurrentPanelKey(instanceRef.value?.currentPanels[page]);
 	}, []);
 
@@ -51,10 +59,14 @@ export default function App({
 		setCurrentPanelKey(instance?.currentPanels[instance?.page]);
 	};
 
+	useEffect(() => {
+		setReviewContainer(document.querySelector("#reviewContainer"));
+	}, [currentPanelKey]);
+
 	return (
 		<div>
-			<h1>{listing.Name} Application</h1>
-			<Breadcrumbs
+			<Header
+				listingName={listing.Name}
 				form={form}
 				currentPanelKey={currentPanelKey}
 			/>
@@ -66,6 +78,10 @@ export default function App({
 				onSubmit={console.log}
 				options={options}
 			/>
+			{reviewContainer && createPortal(
+				<ReviewSummary data={instanceRef.value?.data} />,
+				reviewContainer
+			)}
 		</div>
 	);
 }

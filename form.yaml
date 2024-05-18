@@ -702,6 +702,161 @@ components:
     label: Preferences
     panels:
       - type: panel
+        title: Intro
+        components:
+          - tag: h3
+            content: Lottery Preferences move you up in line and give you a higher ranking in the lottery.
+
+          - tag: hr
+
+          - tag: p
+            content: <strong>Just 3 simple steps:</strong>
+
+          - tag: ol
+            content:
+              <li>
+                See if you qualify for each lottery preference.
+              </li>
+              <li>
+                Check each box to claim your lottery preference.
+              </li>
+              <li>
+                Upload the required documents from your computer or phone.
+              </li>
+
+      - type: panel
+        title: LiveWork
+        key: liveWorkPanel
+        components:
+          - tag: h3
+            content: Based on the addresses you entered, your household may qualify for the following lottery preferences.
+
+          - tag: p
+            content: Just upload valid proof of where you live or work in San Francisco and get a higher ranking in the lottery.
+
+          - tag: hr
+
+          - tag: p
+            content: |
+              If you have one of these lottery preferences, select it below:
+            customClass: desc
+
+          - type: checkbox
+            label: Live or work in San Francisco preference
+            key: liveWork
+            description:
+              <div class="desc">
+                <p>At least one household member must live in San Francisco <strong>or</strong> work in San Francisco at least 75% of their working hours for the live/work preference.</p>
+                <a href="http://sfmohcd.org/housing-preference-programs" target="_blank">Find out more about this preference</a>
+              </div>
+
+          - type: container
+            key: liveWorkPref
+            customConditional: show = data.liveWork
+            components:
+              - type: select
+                label: Which preference option would you like to claim?
+                key: type
+                placeholder: Select one
+                data:
+                  values:
+                    - label: Live in San Francisco
+                      value: live
+                    - label: Work in San Francisco
+                      value: work
+
+              - type: select
+                label: Whose name is on the document you're uploading?
+                key: documentOwner
+                placeholder: Select one
+                customConditional: show = data.liveWorkPref.type
+                data:
+                  values:
+                    - label: Myself
+                      value: myself
+                    - label: Someone else
+                      value: someoneElse
+
+              - type: select
+                label: What type of document would you like to upload to show you live at that address?
+                customConditional: show = data.liveWorkPref.type === "live"
+                description:
+                  <div class="desc">
+                    <p>Document must show the correct name, address where you live in San Francisco and a date within 45 days of your application.</p>
+                  </div>
+                data:
+                  values:
+                    - label: Telephone bill (land line only)
+                      value: telephone
+                    - label: Cable and internet bill
+                      value: cable
+                    - label: Gas bill
+                      value: gas
+                    - label: Electric bill
+                      value: electric
+                    - label: Garbage bill
+                      value: garbage
+                    - label: Water bill
+                      value: water
+                    - label: Paystub (listing home address)
+                      value: paystub
+                    - label: Public benefits record
+                      value: benefits
+                    - label: School record
+                      value: school
+                    - label: Letter documenting homelessness
+                      value: homelessLetter
+
+              - type: select
+                label: Which document are you uploading to prove eligibility?
+                customConditional: show = data.liveWorkPref.type === "work"
+                description:
+                  <div class="desc">
+                    <p>Document must show the correct name, address where you work in San Francisco and a date within 45 days of your application.</p>
+                  </div>
+                data:
+                  values:
+                    - label: Paystub with employer address
+                      value: paystub
+                    - label: Letter from employer
+                      value: employerLetter
+
+              - type: file
+                label: Upload Proof of Preference
+                key: proof
+                fileKey: proofFile
+                storage: url
+                url: housing.sfgov.org
+                fileTypes:
+                  - label: PDF
+                    value: pdf
+                  - label: JPG
+                    value: jpg
+                  - label: PNG
+                    value: png
+                  - label: HEIC
+                    value: heic
+                fileMaxSize: 5MB
+                customConditional: show = data.liveWorkPref.type
+                description: |
+                  <div class="desc">
+                    <p>If you're on a smartphone, you can take a picture.<br>
+                    Maximum file size is 5MB.<br>
+                    Supported file types: PDF, JPG, PNG, HEIC.<br>
+                    Maximum file name length is 80 characters</p>
+                  </div>
+
+          - tag: hr
+
+          - type: checkbox
+            label: I don't want this lottery preference
+            key: dontWantLiveWork
+            description:
+              <div class="desc">
+                <p>You'll still have the opportunity to claim other preferences.</p>
+              </div>
+
+      - type: panel
         title: COP
         components:
           - tag: h3
@@ -777,8 +932,10 @@ components:
           - tag: h3
             content: Take a moment to review your information before submitting your application.
 
-          - tag: p
-            content: "<strong>[Some sort of review UI would go here.]</strong>"
+          - tag: div
+            attrs:
+              - attr: id
+                value: reviewContainer
 
           - tag: p
             content: This is your last chance to edit before submitting.
