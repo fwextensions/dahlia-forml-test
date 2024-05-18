@@ -1,6 +1,7 @@
 import { useCallback, useRef, useState } from "react";
 import { Form } from "@formio/react";
 import Breadcrumbs from "@/components/Breadcrumbs.jsx";
+import hooks from "@/form/hooks.js";
 
 export default function App({
 	form,
@@ -16,7 +17,11 @@ export default function App({
 	const [currentPanelKey, setCurrentPanelKey] = useState();
 		// make the listing data available wherever JS is eval'd in this form
 	const options = {
-		evalContext: { listing }
+		evalContext: { listing },
+		buttonSettings: {
+			showCancel: false
+		},
+		hooks
 	};
 
 	const handleWizardPageSelected = useCallback((panel) => {

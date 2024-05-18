@@ -132,6 +132,11 @@ components:
       - type: panel
         title: You
         components:
+          - tag: h3
+            content: What's your name?
+
+          - tag: hr
+
           - type: fieldSet
             label: Your Name
             components:
@@ -183,6 +188,8 @@ components:
           - tag: h3
             content:
               Thanks, {{data.firstName}}. Now we need to know how to contact you.
+
+          - tag: hr
 
           - type: fieldSet
             components:
@@ -262,18 +269,22 @@ components:
 
               - type: textfield
                 label: Street Address*
+                key: appStreet1
 
               - type: textfield
                 label: "Apt or Unit #"
+                key: appStreet2
 
               - type: textfield
                 label: City*
+                key: appCity
 
               - type: columns
                 columns:
                   - components:
                     - type: select
                       label: State*
+                      key: appState
                       widget: choicesjs
                       searchEnabled: true
                       data: *states
@@ -281,6 +292,7 @@ components:
                   - components:
                     - type: textfield
                       label: Zip Code*
+                      key: appZip
                       validateOn: blur
                       validate:
                         minLength: 5
@@ -334,7 +346,7 @@ components:
           - tag: hr
 
           - type: radio
-            label: Do you work in San Francisco?*
+            label: Do you work in San Francisco?
             key: workInSF
             validate:
               customMessage: This must be answered.
@@ -353,6 +365,25 @@ components:
               In order to claim this as a lottery preference, you'll need to upload
               supporting documentation as instructed on a later screen.
             customConditional: show = data.workInSF === true
+            customClass: desc
+
+      - type: panel
+        title: Address Confirmation
+        components:
+          - tag: h3
+            content: We have located the following address. Please confirm it's correct.
+
+          - tag: hr
+
+          - type: radio
+            label:
+            key: proposedAddressCorrect
+            required: true
+            validate:
+              customMessage: Please confirm the suggested address.
+            values:
+              - label: "{{ data.proposedAddress }}"
+                value: true
 
       - type: panel
         title: Alt Ct Type

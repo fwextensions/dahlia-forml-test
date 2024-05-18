@@ -24,7 +24,6 @@ h3 {
 	font-family: "Droid Serif", Georgia, Times, serif;
 	font-size: 1.5rem;
 	text-align: center;
-	padding: 0 2rem;
 	margin-bottom: 2rem;
 }
 
@@ -154,6 +153,28 @@ h3 {
 }
 */
 
+.formio-component-editgrid .btn,
+.btn-wizard-nav-previous,
+.btn-wizard-nav-next,
+.btn-wizard-nav-submit {
+	font-family: "Lato", Helvetica, Arial, Verdana, sans-serif;
+	font-size: smaller;
+	font-weight: bold;
+	letter-spacing: .2em;
+	text-transform: uppercase;
+	padding: 1rem 1.5rem;
+}
+
+.btn-wizard-nav-previous,
+.btn-wizard-nav-next,
+.btn-wizard-nav-submit {
+	background-color: rgb(0, 119, 218);
+}
+
+.btn-wizard-nav-previous {
+	margin-right: .5rem;
+}
+
 .formio-wizard-nav-container {
 	background: rgb(245, 248, 249);
 	padding: 2rem 0;
@@ -211,12 +232,6 @@ header.you-header {
 	color: #222;
 }
 
-/*
-.field-required::after {
-	display: none;
-}
-*/
-
 .form-group {
 	margin-bottom: 1rem;
 	cursor: auto;
@@ -224,7 +239,6 @@ header.you-header {
 	font-weight: 400;
 	line-height: 24px;
 	color: #222;
-
 }
 
 .border-bottom {
