@@ -141,20 +141,25 @@ components:
             label: Your Name
             components:
               - type: textfield
+                key: firstName
                 placeholder: First Name*
 
               - type: textfield
+                key: middleName
                 placeholder: Middle Name (optional)
 
               - type: textfield
+                key: lastName
                 placeholder: Last Name*
 
           - type: day
+            key: dob
             label: Your Date of Birth*
 
           - tag: hr
 
           - type: email
+            key: email
             label: Your Email Address*
             description:
               We will only use your email address to contact you about your application.
@@ -194,10 +199,12 @@ components:
           - type: fieldSet
             components:
               - type: phoneNumber
+                key: phoneNumber
                 label: Your Phone Number*
                 logic: *disabledOnNoPhone
 
               - type: select
+                key: phoneNumberType
                 label: What type of number is this?*
                 logic: *disabledOnNoPhone
                 data:
@@ -268,31 +275,31 @@ components:
                 customClass: desc
 
               - type: textfield
-                label: Street Address*
                 key: appStreet1
+                label: Street Address*
 
               - type: textfield
                 label: "Apt or Unit #"
                 key: appStreet2
 
               - type: textfield
-                label: City*
                 key: appCity
+                label: City*
 
               - type: columns
                 columns:
                   - components:
                     - type: select
-                      label: State*
                       key: appState
+                      label: State*
                       widget: choicesjs
                       searchEnabled: true
                       data: *states
 
                   - components:
                     - type: textfield
-                      label: Zip Code*
                       key: appZip
+                      label: Zip Code*
                       validateOn: blur
                       validate:
                         minLength: 5
@@ -350,8 +357,8 @@ components:
           - tag: hr
 
           - type: radio
-            label: Do you work in San Francisco?
             key: workInSF
+            label: Do you work in San Francisco?
             validate:
               customMessage: This must be answered.
             description:
@@ -559,7 +566,7 @@ components:
               row: >
                 <div class="row household-member-row">
                   <div class="col-sm">
-                    <strong>{{ row.hhmFirstName }} {{ row.hhmLastName }}</strong>
+                    <strong>{{ row.firstName }} {{ row.lastName }}</strong>
                     <em>Household Member</em>
                   </div>
                   {% if (!instance.options.readOnly && !instance.disabled) { %}
@@ -578,23 +585,24 @@ components:
                 label: Household Member's Name
                 components:
                   - type: textfield
-                    key: hhmFirstName
+                    key: firstName
                     placeholder: First Name*
 
                   - type: textfield
-                    key: hhmMiddleName
+                    key: middleName
                     placeholder: Middle Name (optional)
 
                   - type: textfield
-                    key: hhmLastName
+                    key: lastName
                     placeholder: Last Name
 
               - type: day
+                key: dob
                 label: Date of Birth
 
               - type: radio
+                key: sameAddress
                 label: Do they have the same address as you?
-                key: hhmSameAddress
                 values:
                   - label: Yes
                     value: true
@@ -602,8 +610,8 @@ components:
                     value: false
 
               - type: radio
+                key: workInSF
                 label: Do they work in San Francisco?
-                key: hhmWorkInSF
                 description:
                   This means they currently work in San Francisco at least 75% of their working hours.
                 customClass: desc-above
@@ -617,9 +625,11 @@ components:
                 content:
                   In order to claim this as a lottery preference, you'll need to upload
                   supporting documentation as instructed on a later screen.
-                customConditional: show = row.hhmWorkInSF === true
+                customConditional: show = row.workInSF === true
+                customClass: desc
 
               - type: select
+                key: relationship
                 label: What is their relationship to you?
                 data:
                   values:
@@ -635,6 +645,36 @@ components:
                       value: sibling
                     - label: Other
                       value: other
+
+      - type: panel
+        title: HH Accessibility
+        components:
+          - tag: h3
+            content: Do you or anyone in your household need any of the following
+              ADA accessibility features?
+
+          - tag: p
+            content: If you are selected for a unit, the property will work to
+              accommodate your need to the best of their ability. Should your
+              application be chosen, be prepared to provide supporting documentation
+              from your physician.
+
+          - tag: hr
+
+          - type: selectboxes
+            key: impairments
+            label:
+            description: Please select all that apply.
+            customClass: desc-above
+            values:
+              - label: For mobility impairments
+                value: mobility
+              - label: For vision impairments
+                value: vision
+              - label: For hearing impairments
+                value: hearing
+              - label: No
+                value: none
 
   - type: panelGroup
     key: income
@@ -657,7 +697,10 @@ components:
             content: <strong>Rental subsidies</strong> like VASH, HSA, HOPWA,
               AIDS Foundation, Hamilton Families, Q Foundation, etc.
 
+          - tag: hr
+
           - type: radio
+            key: receiveVouchers
             label:
             description: Please select one.
             customClass: desc-above
@@ -666,6 +709,12 @@ components:
                 value: true
               - label: No
                 value: false
+
+          - tag: p
+            content: If you have a subsidy, your income has to be two times the
+              tenant portion of the rent. We will check this after the lottery.
+            customClass: desc
+            customConditional: show = data.receiveVouchers === true
 
       - type: panel
         title: Income
@@ -679,6 +728,8 @@ components:
           - tag: p
             content: You only need to provide an estimated total right now. The actual total will be calculated if you are selected in the lottery.
 
+          - tag: hr
+
           - type: number
             key: householdIncome
             label: What is your household total pre-tax income?
@@ -689,7 +740,7 @@ components:
               min: 0
 
           - type: radio
-            key: incomeSource
+            key: incomeTimePeriod
             label: ""
             values:
               - label: per month
@@ -725,14 +776,15 @@ components:
               </li>
 
       - type: panel
-        title: LiveWork
-        key: liveWorkPanel
+        title: Pref LiveWork
         components:
           - tag: h3
-            content: Based on the addresses you entered, your household may qualify for the following lottery preferences.
+            content: Based on the addresses you entered, your household may
+              qualify for the following lottery preferences.
 
           - tag: p
-            content: Just upload valid proof of where you live or work in San Francisco and get a higher ranking in the lottery.
+            content: Just upload valid proof of where you live or work in San
+              Francisco and get a higher ranking in the lottery.
 
           - tag: hr
 
@@ -742,12 +794,15 @@ components:
             customClass: desc
 
           - type: checkbox
-            label: Live or work in San Francisco preference
             key: liveWork
+            label: Live or work in San Francisco preference
             description:
               <div class="desc">
-                <p>At least one household member must live in San Francisco <strong>or</strong> work in San Francisco at least 75% of their working hours for the live/work preference.</p>
-                <a href="http://sfmohcd.org/housing-preference-programs" target="_blank">Find out more about this preference</a>
+                <p>At least one household member must live in San Francisco
+                  <strong>or</strong> work in San Francisco at least 75% of their
+                  working hours for the live/work preference.</p>
+                <a href="http://sfmohcd.org/housing-preference-programs"
+                  target="_blank">Find out more about this preference</a>
               </div>
 
           - type: container
@@ -766,10 +821,10 @@ components:
                       value: work
 
               - type: select
-                label: Whose name is on the document you're uploading?
                 key: documentOwner
+                label: Whose name is on the document you're uploading?
                 placeholder: Select one
-                customConditional: show = data.liveWorkPref.type
+                customConditional: show = data.liveWorkPref?.type
                 data:
                   values:
                     - label: Myself
@@ -778,11 +833,14 @@ components:
                       value: someoneElse
 
               - type: select
-                label: What type of document would you like to upload to show you live at that address?
-                customConditional: show = data.liveWorkPref.type === "live"
+                key: documentTypeLive
+                label: What type of document would you like to upload to show
+                  you live at that address?
+                customConditional: show = data.liveWorkPref?.type === "live"
                 description:
                   <div class="desc">
-                    <p>Document must show the correct name, address where you live in San Francisco and a date within 45 days of your application.</p>
+                    <p>Document must show the correct name, address where you live
+                      in San Francisco and a date within 45 days of your application.</p>
                   </div>
                 data:
                   values:
@@ -808,11 +866,13 @@ components:
                       value: homelessLetter
 
               - type: select
+                key: documentTypeWork
                 label: Which document are you uploading to prove eligibility?
-                customConditional: show = data.liveWorkPref.type === "work"
+                customConditional: show = data.liveWorkPref?.type === "work"
                 description:
                   <div class="desc">
-                    <p>Document must show the correct name, address where you work in San Francisco and a date within 45 days of your application.</p>
+                    <p>Document must show the correct name, address where you work
+                      in San Francisco and a date within 45 days of your application.</p>
                   </div>
                 data:
                   values:
@@ -822,8 +882,8 @@ components:
                       value: employerLetter
 
               - type: file
-                label: Upload Proof of Preference
                 key: proof
+                label: Upload Proof of Preference
                 fileKey: proofFile
                 storage: url
                 url: housing.sfgov.org
@@ -837,7 +897,7 @@ components:
                   - label: HEIC
                     value: heic
                 fileMaxSize: 5MB
-                customConditional: show = data.liveWorkPref.type
+                customConditional: show = data.liveWorkPref?.type
                 description: |
                   <div class="desc">
                     <p>If you're on a smartphone, you can take a picture.<br>
@@ -857,17 +917,20 @@ components:
               </div>
 
       - type: panel
-        title: COP
+        title: Pref COP
         components:
           - tag: h3
-            content: There are lottery preferences for people who already have special certificates.
+            content: There are lottery preferences for people who already have
+              special certificates.
 
           - tag: p
-            content: If you have not heard of these preferences, you most likely do not have one.
+            content: If you have not heard of these preferences, you most likely
+              do not have one.
 
           - tag: hr
 
           - type: checkbox
+            key: cop
             label: Certificate of Preference (COP)
             description:
               <div class="desc">
@@ -878,6 +941,7 @@ components:
               </div>
 
           - type: checkbox
+            key: dthp
             label: Displaced Tenant Housing Preference (DTHP)
             description:
               <div class="desc">
@@ -888,7 +952,7 @@ components:
               </div>
 
       - type: panel
-        title: NRHP
+        title: Pref NRHP
         customConditional: |
           show = listing.Listing_Lottery_Preferences.some(({ Lottery_Preference: { Name } }) => Name.includes("NRHP"))
         components:
@@ -922,6 +986,49 @@ components:
                 You'll still have the opportunity to claim other preferences.
               </div>
 
+      - type: panel
+        title: Pref Veterans
+        components:
+          - tag: h3
+            content: Any Veterans?
+
+          - tag: p
+            content: |
+              If you or someone on the application:
+              <br><br>
+              ✓ Is a Veteran of the US military (must show proof)
+              <br>
+              ✓ Qualify for at least one other lottery preference
+              <br><br>
+              <strong>You might rank higher in the lottery.</strong>
+              <br><br>
+              <a href="https://sf.gov/node/11450" target="_blank">Find out more about this preference</a>
+
+          - tag: hr
+
+          - type: radio
+            key: veterans
+            label:
+            description: Please select one.
+            customClass: desc-above
+            values:
+              - label: Yes
+                value: yes
+              - label: No
+                value: no
+              - label: Prefer not to answer
+                value: noAnswer
+
+          - tag: p
+            content:
+              <div class="desc">
+                <p><strong>Your answer could affect lottery ranking.</strong>
+                  <br>
+                  If someone on the application is a Veteran, you might
+                  qualify for a higher lottery ranking.</p>
+              </div>
+            customConditional: show = data.veterans === "noAnswer"
+
   - type: panelGroup
     key: review
     label: Review
@@ -938,4 +1045,4 @@ components:
                 value: reviewContainer
 
           - tag: p
-            content: This is your last chance to edit before submitting.
+            content: <strong>This is your last chance to edit before submitting.</strong>

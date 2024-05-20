@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "@/components/App.jsx";
 import { generateForm } from "@/form/generateForm.js";
 import formData from "../form.yaml";
+import submission from "../submission.yaml";
 import { listing } from "../listing.json";
 import "./global.css";
 
@@ -24,6 +25,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 			: <App
 					form={form}
 					listing={listing}
+					submission={submission}
 				/>
 		}
 	</React.StrictMode>,

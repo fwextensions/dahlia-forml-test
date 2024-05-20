@@ -11,7 +11,8 @@ const formOptions = {
 	},
 	i18n: {
 		en: {
-			previous: "Back"
+			previous: "Back",
+			submit: "Confirm",
 		}
 	},
 	hooks,
@@ -19,7 +20,8 @@ const formOptions = {
 
 export default function App({
 	form,
-	listing })
+	listing,
+	submission = {} })
 {
 		// use a ref instead of state to store the Formio form instance so that we
 		// don't have to recreate the pageChange handler every time the App re-renders.
@@ -53,10 +55,9 @@ export default function App({
 				// buttons in the wizard header.  there doesn't appear to be a way of
 				// adding this handler via the React Form component itself.
 			instance.on("wizardPageSelected", handleWizardPageSelected);
+			instanceRef.value = instance;
+			setCurrentPanelKey(instance?.currentPanels[instance?.page]);
 		}
-
-		instanceRef.value = instance;
-		setCurrentPanelKey(instance?.currentPanels[instance?.page]);
 	};
 
 	useEffect(() => {
@@ -77,6 +78,7 @@ export default function App({
 				onPrevPage={handlePageChange}
 				onSubmit={console.log}
 				options={options}
+				submission={{ data: submission }}
 			/>
 			{reviewContainer && createPortal(
 				<ReviewSummary data={instanceRef.value?.data} />,

@@ -1,0 +1,51 @@
+.review {
+	padding-bottom: 2rem;
+	margin: 2.5rem -2.5rem 3rem;
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+	border-bottom: 1px solid #dedee0;
+
+	section {
+		h3 {
+			padding: 1rem 2rem;
+			background-color: #f6f6f6;
+			border-top: 1px solid #dedee0;
+			text-align: left;
+		}
+
+		& > div {
+			padding: 0 2rem;
+		}
+	}
+
+	dl {
+		margin-bottom: 1rem;
+
+		dt, dd > label {
+			color: #767676;
+			font-size: .875rem;
+			font-family: "Open Sans", Helvetica, Arial, Verdana, sans-serif;
+			font-weight: normal;
+			line-height: 1.375;
+			margin-bottom: .25rem;
+		}
+
+		dd {
+			font-size: .875rem;
+			line-height: 1.375;
+			font-family: "Lato", Helvetica, Arial, Verdana, sans-serif;
+			font-weight: 600;
+			letter-spacing: .1rem;
+			margin-bottom: 0;
+			text-transform: uppercase;
+		}
+
+		dd > label {
+			text-transform: none;
+			letter-spacing: normal;
+			margin-top: .25rem;
+			display: block;
+		}
+	}
+}

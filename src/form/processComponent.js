@@ -20,10 +20,9 @@ export function processComponent(
 
 	if (type === "panelGroup") {
 		return panelGroup(component, context);
-	} else if (type !== "form") {
+	} else if (type !== "form" && !key) {
 		component.key = uniqueKey(
-			key
-			|| label
+			label
 			|| placeholder
 			|| component.title
 			|| component.tag
