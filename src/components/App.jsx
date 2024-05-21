@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Form } from "@formio/react";
 import Header from "@/components/Header.jsx";
@@ -31,38 +31,28 @@ export default function App({
 		// through the ref.
 	const instanceRef = useRef();
 	const [currentPanelKey, setCurrentPanelKey] = useState();
-	const [reviewContainer, setReviewContainer] = useState();
 		// make the listing data available wherever JS is eval'd in this form
 	const options = {
 		...formOptions,
 		evalContext: { listing },
 	};
+		// whenever we're rendered, check for the review container, which means
+		// we're on the review page and can render the summary in a portal
+	const reviewContainer = document.querySelector("#review-container");
 
-	const handleWizardPageSelected = useCallback((panel) => {
-			// this event includes the instance of the panel that was clicked, so fish
-			// its key out of the component JSON
-		setCurrentPanelKey(panel.component.key);
-	}, []);
-
-	const handlePageChange = useCallback(({ page }) => {
-			// convert the page number into a panel key
-		setCurrentPanelKey(instanceRef.value?.currentPanels[page]);
-	}, []);
-
-	const handleFormReady = (instance) => {
-		if (!instanceRef.value) {
-				// when we're first mounted, add a handler to get clicks on the page
-				// buttons in the wizard header.  there doesn't appear to be a way of
-				// adding this handler via the React Form component itself.
-			instance.on("wizardPageSelected", handleWizardPageSelected);
-			instanceRef.value = instance;
+	const handleFormReady = useCallback((instance) => {
+		if (!instanceRef.current) {
+			instanceRef.current = instance;
 			setCurrentPanelKey(instance?.currentPanels[instance?.page]);
 		}
-	};
+	}, []);
 
-	useEffect(() => {
-		setReviewContainer(document.querySelector("#reviewContainer"));
-	}, [currentPanelKey]);
+	const handleRender = useCallback(({ component }) => {
+			// the component prop contains metadata about the current panel that was
+			// just rendered, but doesn't include the key at the top level.  so dig it
+			// out of the component property, which is the original component JSON.
+		setCurrentPanelKey(component.component.key);
+	}, []);
 
 	return (
 		<div>
@@ -74,14 +64,13 @@ export default function App({
 			<Form
 				form={form}
 				formReady={handleFormReady}
-				onNextPage={handlePageChange}
-				onPrevPage={handlePageChange}
+				onRender={handleRender}
 				onSubmit={console.log}
 				options={options}
 				submission={{ data: submission }}
 			/>
 			{reviewContainer && createPortal(
-				<ReviewSummary data={instanceRef.value?.data} />,
+				<ReviewSummary data={instanceRef.current?.data} />,
 				reviewContainer
 			)}
 		</div>

@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import styles from "./ReviewSummary.module.css";
 
 function Section({
@@ -35,20 +36,23 @@ function Field({
 function HouseholdMembers({
 	members })
 {
-	let children = <Field name="">None</Field>;
+	let children = <Field>None</Field>;
 
 	if (members.length) {
 		children = members.map((member) => {
+			const { firstName, lastName, relationship, dob } = member;
+			const key = firstName + lastName + dob;
+
 			return (
-				<>
+				<Fragment key={key}>
 					<Field name="Name">
-						{member.firstName} {member.lastName}
-						<label>{member.relationship}</label>
+						{firstName} {lastName}
+						<label>{relationship}</label>
 					</Field>
 					<Field name="Date of Birth">
-						{member.dob}
+						{dob}
 					</Field>
-				</>
+				</Fragment>
 			);
 		});
 	}
@@ -97,11 +101,11 @@ export default function ReviewSummary({
 			</Section>
 
 			<Section title="Preferences">
-				<Field name="">None</Field>
+				<Field>None</Field>
 			</Section>
 
 			<Section title="More About You">
-				<Field name="">None</Field>
+				<Field>None</Field>
 			</Section>
 		</div>
 	);

@@ -666,6 +666,10 @@ components:
             label:
             description: Please select all that apply.
             customClass: desc-above
+            calculateValue: |
+              value = value.none
+                ? { none: true, mobility: false, vision: false, hearing: false }
+                : { ...value, none: false };
             values:
               - label: For mobility impairments
                 value: mobility
@@ -1042,7 +1046,7 @@ components:
           - tag: div
             attrs:
               - attr: id
-                value: reviewContainer
+                value: review-container
 
           - tag: p
             content: <strong>This is your last chance to edit before submitting.</strong>
