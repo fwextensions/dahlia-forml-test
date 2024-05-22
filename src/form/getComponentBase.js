@@ -1,3 +1,6 @@
+import { panelGroup } from "@/form/panelGroup.js";
+import { address } from "@/form/address.js";
+
 const TableInputTrue = {
 	tableView: true,
 	input: true,
@@ -75,7 +78,7 @@ const ComponentProperties = [
 		TableInputTrue
 	],
 ];
-export const ComponentDefaults = ComponentProperties.reduce((
+export const ComponentBases = ComponentProperties.reduce((
 	result,
 	[key, props]) => ({
 	...result,
@@ -87,11 +90,12 @@ export const ComponentDefaults = ComponentProperties.reduce((
 		// we don't want to add any defaults to these components, but we do want
 		// them in this hash so they're not treated as unknown types
 	form: {},
-	panelGroup: {}
+	panelGroup,
+	address,
 });
 
-export function getComponentDefaults(
+export function getComponentBase(
 	componentData)
 {
-	return ComponentDefaults[componentData.type || (componentData.tag && "htmlelement")];
+	return ComponentBases[componentData.type || (componentData.tag && "htmlelement")];
 }

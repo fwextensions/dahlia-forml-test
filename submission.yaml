@@ -8,14 +8,14 @@ phoneNumber:
 phoneNumberType:
 noPhone: true
 anotherPhone: false
-appStreet1: 123 Main St.
-appStreet2:
-appCity: San Francisco
-appState: CA
-appZip: 94105
+homeAddress:
+  street1: 123 Main St.
+  street2:
+  city: San Francisco
+  state: CA
+  zip: 94105
 sendDifferentAddress: false
 workInSF: ""
-proposedAddressCorrect: true
 altContactType: family
 iWillLiveAlone: false
 otherPeopleWillLiveWithMe: true
@@ -28,16 +28,10 @@ certificateOfPreferenceCOP: false
 displacedTenantHousingPreference: false
 liveInTheNeighborhood: false
 iDonTWantThisPreference: true
-proposedAddress: "123 MAIN ST SAN FRANCISCO, CA 94105-1804"
 altFirstName: ""
 altLastName: ""
 contactPhoneNumber: ""
 contactEmailAddress: ""
-streetAddress1: ""
-aptOrUnit1: ""
-city1: ""
-state1: ""
-zipCode1: ""
 willLiveAlone: false
 householdMembers:
   - firstName: Other

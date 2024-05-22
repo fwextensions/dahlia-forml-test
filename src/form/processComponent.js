@@ -1,5 +1,4 @@
-import { panelGroup } from "@/form/panelGroup.js";
-import { getComponentDefaults } from "@/form/getComponentDefaults.js";
+import { getComponentBase } from "@/form/getComponentBase.js";
 
 export function processComponent(
 	data,
@@ -7,20 +6,22 @@ export function processComponent(
 {
 	const { type, key, label, placeholder, components, columns } = data;
 	const { uniqueKey } = context;
-	const defaults = getComponentDefaults(data);
+	const base = getComponentBase(data);
 
-	if (!defaults) {
+	if (!base) {
 		throw new Error(`Unknown component type: ${type}`);
 	}
 
+	if (typeof base === "function") {
+		return base(data, context);
+	}
+
 	const component = {
-		...defaults,
+		...base,
 		...data,
 	};
 
-	if (type === "panelGroup") {
-		return panelGroup(component, context);
-	} else if (type !== "form" && !key) {
+	if (type !== "form" && !key) {
 		component.key = uniqueKey(
 			label
 			|| placeholder

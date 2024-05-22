@@ -6,18 +6,13 @@ export default {
 	{
 		if (currentPage.key === "contact") {
 			const { data } = submission;
+			const { homeAddress } = data;
 
 			fetch("https://track-interest.vercel.app/dahlia/addresses/validate.json", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({
-					address: {
-						street1: data.appStreet1,
-						street2: data.appStreet2,
-						city: data.appCity,
-						state: data.appState,
-						zip: data.appZip
-					}
+					address: { ...homeAddress }
 				})
 			})
 				.then(res => res.json())
