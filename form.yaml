@@ -795,19 +795,18 @@ components:
           - tag: p
             content: |
               If you have one of these lottery preferences, select it below:
-            customClass: desc
+            customClass: form-text
 
           - type: checkbox
             key: liveWork
             label: Live or work in San Francisco preference
+            customClass: desc-indented
             description:
-              <div class="desc">
-                <p>At least one household member must live in San Francisco
-                  <strong>or</strong> work in San Francisco at least 75% of their
-                  working hours for the live/work preference.</p>
-                <a href="http://sfmohcd.org/housing-preference-programs"
-                  target="_blank">Find out more about this preference</a>
-              </div>
+              <p>At least one household member must live in San Francisco
+                <strong>or</strong> work in San Francisco at least 75% of their
+                working hours for the live/work preference.</p>
+              <a href="http://sfmohcd.org/housing-preference-programs"
+                target="_blank">Find out more about this preference</a>
 
           - type: container
             key: liveWorkPref
@@ -842,10 +841,8 @@ components:
                   you live at that address?
                 customConditional: show = data.liveWorkPref?.type === "live"
                 description:
-                  <div class="desc">
-                    <p>Document must show the correct name, address where you live
-                      in San Francisco and a date within 45 days of your application.</p>
-                  </div>
+                  Document must show the correct name, address where you live
+                  in San Francisco and a date within 45 days of your application.
                 data:
                   values:
                     - label: Telephone bill (land line only)
@@ -874,10 +871,8 @@ components:
                 label: Which document are you uploading to prove eligibility?
                 customConditional: show = data.liveWorkPref?.type === "work"
                 description:
-                  <div class="desc">
-                    <p>Document must show the correct name, address where you work
-                      in San Francisco and a date within 45 days of your application.</p>
-                  </div>
+                  Document must show the correct name, address where you work
+                  in San Francisco and a date within 45 days of your application.
                 data:
                   values:
                     - label: Paystub with employer address
@@ -903,22 +898,19 @@ components:
                 fileMaxSize: 5MB
                 customConditional: show = data.liveWorkPref?.type
                 description: |
-                  <div class="desc">
-                    <p>If you're on a smartphone, you can take a picture.<br>
-                    Maximum file size is 5MB.<br>
-                    Supported file types: PDF, JPG, PNG, HEIC.<br>
-                    Maximum file name length is 80 characters</p>
-                  </div>
+                  If you're on a smartphone, you can take a picture.<br>
+                  Maximum file size is 5MB.<br>
+                  Supported file types: PDF, JPG, PNG, HEIC.<br>
+                  Maximum file name length is 80 characters
 
           - tag: hr
 
           - type: checkbox
             label: I don't want this lottery preference
             key: dontWantLiveWork
+            customClass: desc-indented
             description:
-              <div class="desc">
-                <p>You'll still have the opportunity to claim other preferences.</p>
-              </div>
+              You'll still have the opportunity to claim other preferences.
 
       - type: panel
         title: Pref COP
@@ -936,24 +928,22 @@ components:
           - type: checkbox
             key: cop
             label: Certificate of Preference (COP)
+            customClass: desc-indented
             description:
-              <div class="desc">
-                <p>If you hold a Certificate of Preference (COP) from the
-                former San Francisco Redevelopment Agency.  COP holders were displaced
-                by Agency action generally during the 1960s and 1970s.</p>
-                <a href="https://www.redevelopmentagency.org/" target="_blank">Find out more about this preference</a>
-              </div>
+              <p>If you hold a Certificate of Preference (COP) from the
+              former San Francisco Redevelopment Agency.  COP holders were displaced
+              by Agency action generally during the 1960s and 1970s.</p>
+              <a href="https://www.redevelopmentagency.org/" target="_blank">Find out more about this preference</a>
 
           - type: checkbox
             key: dthp
             label: Displaced Tenant Housing Preference (DTHP)
+            customClass: desc-indented
             description:
-              <div class="desc">
-                <p>If you hold a Displaced Tenant Housing Preference Certificate (DTHP).
-                DTHP Certificate holders are tenants who were evicted through either an
-                Ellis Act Eviction or an Owner Move In Eviction, or have been displaced by a fire.</p>
-                <a href="https://sfmohcd.org/displaced-tenant-housing-preference" target="_blank">Find out more about this preference</a>
-              </div>
+              <p>If you hold a Displaced Tenant Housing Preference Certificate (DTHP).
+              DTHP Certificate holders are tenants who were evicted through either an
+              Ellis Act Eviction or an Owner Move In Eviction, or have been displaced by a fire.</p>
+              <a href="https://sfmohcd.org/displaced-tenant-housing-preference" target="_blank">Find out more about this preference</a>
 
       - type: panel
         title: Pref NRHP
@@ -970,25 +960,24 @@ components:
           - tag: hr
 
           - type: checkbox
+            key: nrhp
             label: Live in the Neighborhood
+            customClass: desc-indented
             description:
-              <div class="desc">
-                <p>You said someone in your household lives in the same neighborhood as
-                the listing.</p>
-                <p><strong>Neighborhood Resident Housing Preference</strong> means at
-                least one household member lives within the same Supervisorial District
-                or within a 1/2 mile buffer of the project.</p>
-                <a href="https://www.redevelopmentagency.org/" target="_blank">Find out more about this preference</a>
-              </div>
+              <p>You said someone in your household lives in the same neighborhood as
+              the listing.</p>
+              <p><strong>Neighborhood Resident Housing Preference</strong> means at
+              least one household member lives within the same Supervisorial District
+              or within a 1/2 mile buffer of the project.</p>
+              <a href="https://www.redevelopmentagency.org/" target="_blank">Find out more about this preference</a>
 
           - tag: hr
 
           - type: checkbox
             label: I don't want this preference
+            customClass: desc-indented
             description:
-              <div class="desc">
-                You'll still have the opportunity to claim other preferences.
-              </div>
+              You'll still have the opportunity to claim other preferences.
 
       - type: panel
         title: Pref Veterans
@@ -1024,13 +1013,12 @@ components:
                 value: noAnswer
 
           - tag: p
+            customClass: form-text
             content:
-              <div class="desc">
-                <p><strong>Your answer could affect lottery ranking.</strong>
-                  <br>
-                  If someone on the application is a Veteran, you might
-                  qualify for a higher lottery ranking.</p>
-              </div>
+              <strong>Your answer could affect lottery ranking.</strong>
+              <br>
+              If someone on the application is a Veteran, you might
+              qualify for a higher lottery ranking.
             customConditional: show = data.veterans === "noAnswer"
 
   - type: panelGroup

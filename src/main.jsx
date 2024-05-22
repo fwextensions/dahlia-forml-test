@@ -3,10 +3,12 @@ import ReactDOM from "react-dom/client";
 import App from "@/components/App.jsx";
 import { generateForm } from "@/form/generateForm.js";
 import formData from "../form.yaml";
-import submission from "../submission.yaml";
+import data from "../submission.yaml";
 import { listing } from "../listing.json";
 import "./global.css";
 
+	// Formio expects the submission data to be on a `data` property
+const submission = { data };
 let form;
 let errorMessage;
 
@@ -16,7 +18,7 @@ try {
 	errorMessage = e.message;
 }
 
-console.log(form);
+console.log("JSON from form.yaml", form);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<React.StrictMode>

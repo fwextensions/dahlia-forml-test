@@ -49,8 +49,15 @@ button[ref="editgrid-householdMembers-addRow"] {
 	line-height: 1.25;
 }
 
-.form-text > div.desc {
+.desc-indented .form-text {
 	margin-left: 1.5em;
+}
+
+.form-text {
+	color: rgb(118, 118, 118);
+	font-size: smaller;
+	line-height: 1.25;
+	margin-bottom: .75rem;
 }
 
 .desc-above {
@@ -66,11 +73,7 @@ button[ref="editgrid-householdMembers-addRow"] {
 	}
 
 	.form-text {
-		color: rgb(118, 118, 118);
-		font-size: smaller;
-		line-height: 1.25;
 		grid-area: desc;
-		margin-bottom: .75rem;
 	}
 
 	div[ref="element"],

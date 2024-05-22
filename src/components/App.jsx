@@ -21,7 +21,7 @@ const formOptions = {
 export default function App({
 	form,
 	listing,
-	submission = {} })
+	submission })
 {
 		// use a ref instead of state to store the Formio form instance so that we
 		// don't have to recreate the pageChange handler every time the App re-renders.
@@ -67,7 +67,7 @@ export default function App({
 				onRender={handleRender}
 				onSubmit={console.log}
 				options={options}
-				submission={{ data: submission }}
+				submission={submission}
 			/>
 			{reviewContainer && createPortal(
 				<ReviewSummary data={instanceRef.current?.data} />,
