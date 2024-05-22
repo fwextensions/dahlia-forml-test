@@ -28,8 +28,6 @@ certificateOfPreferenceCOP: false
 displacedTenantHousingPreference: false
 liveInTheNeighborhood: false
 iDonTWantThisPreference: true
-altFirstName: ""
-altLastName: ""
 contactPhoneNumber: ""
 contactEmailAddress: ""
 willLiveAlone: false

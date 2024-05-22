@@ -62,6 +62,11 @@ const ComponentProperties = [
 		hideLabel: true,
 		...TableInputFalse
 	}],
+	["tags", {
+		// yes, seriously, this is a misspelling in the formio code.  ffs.
+		delimeter: ";",
+		...TableInputTrue
+	}],
 	["editgrid",
 		TableInputFalse
 	],

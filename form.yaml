@@ -273,15 +273,18 @@ components:
           - tag: h3
             content: Who is your alternate contact?
 
-          - type: fieldSet
+          - type: container
+            key: altContact
             components:
-              - type: textfield
-                label: First Name
-                key: altFirstName
+              - type: fieldSet
+                components:
+                  - type: textfield
+                    label: First Name
+                    key: firstName
 
-              - type: textfield
-                label: Last Name
-                key: altLastName
+                  - type: textfield
+                    label: Last Name
+                    key: lastName
 
       - type: panel
         title: Alt Ct Address
@@ -295,26 +298,31 @@ components:
 
           - tag: hr
 
-          - type: phoneNumber
-            label: Contact Phone Number
-
-          - tag: hr
-
-          - type: email
-            label: Contact Email Address
-
-          - tag: hr
-
-          - type: fieldSet
-            label: Contact Mailing Address
+          - type: container
+            key: altContact
             components:
-              - tag: p
-                content: Choose an address where they can receive updates and materials
-                  about your application.
-                customClass: desc
+              - type: phoneNumber
+                key: phoneNumber
+                label: Contact Phone Number
 
-              - type: address
-                key: altContactAddress
+              - tag: hr
+
+              - type: email
+                key: email
+                label: Contact Email Address
+
+              - tag: hr
+
+              - type: fieldSet
+                label: Contact Mailing Address
+                components:
+                  - tag: p
+                    content: Choose an address where they can receive updates and materials
+                      about your application.
+                    customClass: desc
+
+                  - type: address
+                    key: address
 
   - type: panelGroup
     key: household
@@ -840,6 +848,180 @@ components:
     key: review
     label: Review
     panels:
+      - type: panel
+        title: HUD
+        components:
+          - tag: h3
+            content: Help us ensure we are meeting our goal to serve all people.
+
+          - tag: p
+            content: These questions are optional and won't affect your
+              eligibility for housing. Your answers will be kept private.
+
+          - tag: hr
+
+          - type: fieldSet
+            key: raceEthnicity
+            label: Your race and ethnicity
+            components:
+              - tag: p
+                content: Which items below best describe your race and ethnicity?
+                  Choose as many items as apply from the categories below.
+                customClass: form-text
+
+              - type: panel
+                key: asianSelector
+                title: Asian
+                collapsible: true
+                collapsed: true
+                components:
+                  - type: selectboxes
+                    key: asian
+                    label:
+                    values:
+                      - label: Chinese
+                        value: Chinese
+                      - label: Filipino
+                        value: Filipino
+                      - label: Japanese
+                        value: Japanese
+                      - label: Korean
+                        value: Korean
+                      - label: Mongolian
+                        value: Mongolian
+                      - label: Central Asian
+                        value: Central Asian
+                      - label: South Asian
+                        value: South Asian
+                      - label: Southeast Asian
+                        value: Southeast Asian
+                      - label: Other Asian
+                        value: Other Asian
+
+              - type: panel
+                key: blackSelector
+                title: Black
+                collapsible: true
+                collapsed: true
+                components:
+                  - type: selectboxes
+                    key: black
+                    label:
+                    values:
+                      - label: African
+                        value: African
+                      - label: African American
+                        value: African American
+                      - label: Caribbean, Central American, South American or Mexican
+                        value: Caribbean
+                      - label: Other Black
+                        value: Other Black
+
+              - type: tags
+                key: selectedRaceEthnicity
+                label: You selected...
+                calculateValue: |
+                  const all = { ...data.asian, ...data.black };
+                  value = Object.entries(all).filter(([key, value]) => value).map(([key]) => key).join(";");
+
+          - tag: hr
+
+          - type: select
+            key: language
+            label: Language spoken at home
+            description: Select the language that is most commonly spoken in your home.
+            placeholder: Select one
+            customClass: desc-above
+            data:
+              values:
+                - label: Chinese - Cantonese
+                  value: Chinese - Cantonese
+                - label: Chinese - Mandarin
+                  value: Chinese - Mandarin
+                - label: English
+                  value: English
+                - label: Filipino
+                  value: Filipino
+                - label: Russian
+                  value: Russian
+                - label: Spanish
+                  value: Spanish
+                - label: Vietnamese
+                  value: Vietnamese
+                - label: Not Listed
+                  value: Not Listed
+
+          - tag: hr
+
+          - type: select
+            key: gender
+            label: What is your gender?
+            description: Select one that best describes your current gender identity.
+            placeholder: Select one
+            customClass: desc-above
+            data:
+              values:
+                - label: Female
+                  value: female
+                - label: Male
+                  value: male
+                - label: Genderqueer/Gender Non-binary
+                  value: genderqueer
+                - label: Trans Female
+                  value: transFemale
+                - label: Trans Male
+                  value: transMale
+                - label: Not Listed
+                  value: notListed
+
+          - tag: hr
+
+          - type: select
+            key: orientation
+            label: How do you describe your sexual orientation or sexual identity?
+            placeholder: Select one
+            data:
+              values:
+                - label: Bisexual
+                  value: Bisexual
+                - label: Gay/Lesbian/Same-Gender Loving
+                  value: Gay/Lesbian/Same-Gender Loving
+                - label: Questioning/Unsure
+                  value: Questioning/Unsure
+                - label: Straight/Heterosexual
+                  value: Straight/Heterosexual
+                - label: Not Listed
+                  value: Not Listed
+
+          - tag: hr
+
+          - type: select
+            key: howHeard
+            label: How did you hear about this listing?
+            placeholder: Select one
+            data:
+              values:
+                - label: Newspaper
+                  value: newspaper
+                - label: MOHCD Website
+                  value: mohcdWebsite
+                - label: Developer Website
+                  value: developerWebsite
+                - label: Flyer
+                  value: flyer
+                - label: Email Alert
+                  value: emailAlert
+                - label: Friend
+                  value: friend
+                - label: Housing Counselor
+                  value: housingCounselor
+                - label: Radio Ad
+                  value: radioAd
+                - label: Bus Ad
+                  value: busAd
+                - label: Other
+                  value: other
+
       - type: panel
         title: Review
         components:

@@ -15,7 +15,10 @@ export function panelGroup(
 			// add all the child panel keys to the group info so the Breadcrumbs
 			// component can determine which group the form is currently in
 		groupInfo.panelKeys.push(panel.key);
-		panel.tags = (panel.tags ?? []).concat(`grp:${key}`);
+		panel.properties = {
+			...panel.properties,
+			panelGroup: key
+		};
 	}
 
 	return processedPanels;
