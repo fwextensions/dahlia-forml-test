@@ -40,18 +40,23 @@ export default function App({
 		// we're on the review page and can render the summary in a portal
 	const reviewContainer = document.querySelector("#review-container");
 
-	const handleFormReady = useCallback((instance) => {
-		if (!instanceRef.current) {
-			instanceRef.current = instance;
-			setCurrentPanelKey(instance?.currentPanels[instance?.page]);
-		}
-	}, []);
-
 	const handleRender = useCallback(({ component }) => {
 			// the component prop contains metadata about the current panel that was
 			// just rendered, but doesn't include the key at the top level.  so dig it
 			// out of the component property, which is the original component JSON.
-		setCurrentPanelKey(component.component.key);
+		const { root, component: { key, properties } } = component;
+		const rootClasses = root.element.classList;
+
+		setCurrentPanelKey(key);
+
+		if (!instanceRef.current) {
+			instanceRef.current = root;
+		}
+
+			// customize the display of the wizard nav buttons based on the current
+			// panel's properties
+		rootClasses.toggle("hide-nav-buttons", properties.hideNavButtons === true);
+		rootClasses.toggle("hide-next-button", properties.hideNextButton === true);
 	}, []);
 
 	return (
@@ -63,7 +68,6 @@ export default function App({
 			/>
 			<Form
 				form={form}
-				formReady={handleFormReady}
 				onRender={handleRender}
 				onSubmit={console.log}
 				options={options}
