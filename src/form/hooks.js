@@ -16,13 +16,8 @@ export default {
 				})
 			})
 				.then(res => res.json())
-				.then(({ address }) => {
-					data.proposedAddress =
-						`${address.street1} ${address.street2}, ${address.city}, ${address.state} ${address.zip}`;
-				})
-				.catch((error) => {
-					console.error(error);
-				})
+				.then(({ address }) => data.proposedAddress = address)
+				.catch(console.error)
 				.finally(next);
 		} else {
 			return next();

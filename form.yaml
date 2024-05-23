@@ -233,7 +233,11 @@ components:
             validate:
               customMessage: Please confirm the suggested address.
             values:
-              - label: "{{ data.proposedAddress }}"
+              - label: |
+                  {{ data.proposedAddress.street1 }} {{ data.proposedAddress.street2 }}
+                  <br>
+                  {{ data.proposedAddress.city }}, {{ data.proposedAddress.state }}
+                  {{ data.proposedAddress.zip }}
                 value: true
 
       - type: panel
