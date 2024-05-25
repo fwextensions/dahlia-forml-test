@@ -44,19 +44,13 @@ export default function App({
 			// the component prop contains metadata about the current panel that was
 			// just rendered, but doesn't include the key at the top level.  so dig it
 			// out of the component property, which is the original component JSON.
-		const { root, component: { key, properties } } = component;
-		const rootClasses = root.element.classList;
+		const { root, component: { key } } = component;
 
 		setCurrentPanelKey(key);
 
 		if (!instanceRef.current) {
 			instanceRef.current = root;
 		}
-
-			// customize the display of the wizard nav buttons based on the current
-			// panel's properties
-		rootClasses.toggle("hide-nav-buttons", properties.hideNavButtons === true);
-		rootClasses.toggle("hide-next-button", properties.hideNextButton === true);
 	}, []);
 
 	return (

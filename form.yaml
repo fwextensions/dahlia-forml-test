@@ -334,8 +334,8 @@ components:
     panels:
       - type: panel
         title: Household
-        properties:
-          hideNextButton: true
+        buttonSettings:
+          next: false
         components:
           - tag: h3
             content: Next, we'd like to know about the others who will live with you in the unit.
@@ -376,8 +376,9 @@ components:
 
       - type: panel
         title: HH Add Member
-        properties:
-          hideNavButtons: true
+        buttonSettings:
+          previous: false
+          next: false
         customConditional: show = data.willLiveAlone === false
         components:
           - tag: h3

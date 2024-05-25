@@ -190,6 +190,10 @@ button[ref="editgrid-householdMembers-addRow"] {
 	border-radius: 0 0 .5rem .5rem;
 }
 
+.formio-wizard-nav-container:not(:has(*)) {
+	display: none;
+}
+
 .hide-nav-buttons .formio-wizard-nav-container {
 	display: none;
 }
